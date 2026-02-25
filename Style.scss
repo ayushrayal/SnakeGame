@@ -10,6 +10,7 @@ html, body{
 :root{
     // background-color
     --bg-primary-color: #0c0c0c;
+    --bg-fill-color: rgba(97, 93, 105, 0.644);
 
     // text-color
     --text-primary-color: #f0f0f0;
@@ -63,11 +64,14 @@ section .board{
     flex-grow: 1;
     border-radius: var(--border-radius-md);
     display: grid;
-    grid-template-columns: repeat(auto-fill, 30px);
-    grid-template-rows: repeat(auto-fill, 30px);
+    grid-template-columns: repeat(auto-fill, minmax(50px,1fr));
+    grid-template-rows: repeat(auto-fill, minmax(50px, 1fr));
 }
 .block{
-    height: 30px;
-    width: 30px;
+    // height: 30px;
+    // width: 30px;
     border: 1px solid var(--border-primary-color);
+}
+.fill{
+    background-color: var(--bg-fill-color);
 }
