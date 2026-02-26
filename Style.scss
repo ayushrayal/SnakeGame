@@ -10,7 +10,7 @@ html, body{
 :root{
     // background-color
     --bg-primary-color: #0c0c0c;
-    --bg-fill-color: rgba(97, 93, 105, 0.644);
+    --bg-fill-color: rgba(19, 192, 82, 0.644);
     --bg-food-color:rgb(181, 27, 27);
 
 
@@ -73,6 +73,7 @@ section .board{
     // height: 30px;
     // width: 30px;
     border: 1px solid var(--border-primary-color);
+    border-radius: 50%;
 }
 .fill{
     background-color: var(--bg-fill-color);
@@ -80,4 +81,44 @@ section .board{
 .food{
     background-color: var(--bg-food-color);
     border-radius: var(--border-radius-xl);
+}
+.modal{
+    height: 100vh;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .start-game,.game-over{
+        background-color: var(--bg-primary-color);
+        padding: var(--space-2xl);
+        border-radius: var(--border-radius-lg);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: var(--space-md);
+        h3{
+            text-align: center;
+        }
+        .btn{
+            padding: var(--space-sm) var(--space-md);
+            border: 1px solid var(--border-primary-color);
+            border-radius: var(--border-radius-md);
+            background-color: transparent;
+            color: var(--text-primary-color);
+            text-align: center;
+            width:fit-content;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            &:active{
+               scale: .9;
+            }
+        }
+    }
+}
+.modal .game-over{
+    display: none;
 }
