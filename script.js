@@ -1,4 +1,7 @@
 const board = document.querySelector(".board");
+let highScore = document.querySelector("#high-score");
+let score = document.querySelector("#score");
+let time = document.querySelector("#time");
 const blockHeight = 50;
 const blockWidth = 50;
 
@@ -10,6 +13,8 @@ const snake = [{
   x:1,y:3
 }];
 let direction = "right";
+let interval = null;
+let food = {x:Math.floor(Math.random()* rows), y: Math.floor(Math.random()* cols)};
 // for(let i = 0; i<rows * cols; i++){
 //     const block = document.createElement("div");
 //     block.classList.add("block");
@@ -27,13 +32,10 @@ for (let row = 0; row < rows; row++) {
 }
 
 function render(){
-  snake.forEach(segment=>{
-    blocks[`${segment.x},${segment.y}`].classList.add("fill");
-  })
-}
 
-setInterval(()=>{
-  let head = null;
+  blocks[`${food.x},${food.y}`].classList.add("food");
+
+   let head = null;
   if(direction === "left"){
     head = {x: snake[0].x, y: snake[0].y - 1}
   }else if(direction === "right"){
@@ -44,11 +46,33 @@ setInterval(()=>{
     head = {x: snake[0].x - 1 , y: snake[0].y}
   }
 
+  if(head.x < 0 || head.x >= rows || head.y < 0 || head.y >= cols){
+    alert("Game Over");
+    clearInterval(interval);
+  }
+
+  if(head.x == food.x && head.y == food.y){
+     blocks[`${food.x},${food.y}`].classList.remove("food");
+     food = {
+      x:Math.floor(Math.random()* rows), y: Math.floor(Math.random()* cols)
+     }
+         blocks[`${food.x},${food.y}`].classList.remove("food");
+    snake.unshift(head);
+  }
+
   snake.forEach(segment=>{
     blocks[`${segment.x},${segment.y}`].classList.remove("fill");
   })
   snake.unshift(head);
   snake.pop()
+
+    snake.forEach(segment=>{
+    blocks[`${segment.x},${segment.y}`].classList.add("fill");
+  })
+}
+
+interval = setInterval(()=>{
+ 
   render()
 },500)
 
@@ -66,4 +90,5 @@ addEventListener("keydown",(event)=>{
    }else if(event.key === "ArrowLeft"){
     direction = "left";
    }
+
 })

@@ -11,6 +11,8 @@ html, body{
     // background-color
     --bg-primary-color: #0c0c0c;
     --bg-fill-color: rgba(97, 93, 105, 0.644);
+    --bg-food-color:rgb(181, 27, 27);
+
 
     // text-color
     --text-primary-color: #f0f0f0;
@@ -74,4 +76,8 @@ section .board{
 }
 .fill{
     background-color: var(--bg-fill-color);
+}
+.food{
+    background-color: var(--bg-food-color);
+    border-radius: var(--border-radius-xl);
 }
