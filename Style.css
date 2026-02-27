@@ -80,7 +80,6 @@ section .board {
 
 .food {
   background-color: var(--bg-food-color);
-  border-radius: var(--border-radius-xl);
 }
 
 .modal {
