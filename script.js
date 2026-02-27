@@ -10,10 +10,32 @@ const h3 = document.querySelector(".game-over h3");
 const gameOverModel = document.querySelector(".game-over");
 const blockHeight = 50;
 const blockWidth = 50;
-
 const cols = Math.floor(board.clientWidth / blockWidth);
 const rows = Math.floor(board.clientHeight / blockHeight);
-
+const startSound = new Audio("sounds/startingaudio.mp3");
+const gameOverSound = [
+  new Audio("sounds/gameOverSound/arebhaibhai.mp3"),
+  new Audio("sounds/gameOverSound/baigan.mp3"),
+  new Audio("sounds/gameOverSound/chiisasur.mp3"),
+  new Audio("sounds/gameOverSound/dry-fart.mp3"),
+  new Audio("sounds/gameOverSound/sad-meow-song.mp3"),
+  new Audio("sounds/gameOverSound/spongebob-fail.mp3"),
+];
+const gameStartSound = [
+  new Audio("sounds/gameStartSound/chalo.mp3"),
+  new Audio("sounds/gameStartSound/chal.mp3"),
+  new Audio("sounds/gameStartSound/coc.mp3"),
+  new Audio("sounds/gameStartSound/startingaudio.mp3"),
+  new Audio("sounds/gameStartSound/rahanhijata.mp3"),
+];
+const gameEatSound = [
+  new Audio("sounds/gameEatSound/maja-aaya.mp3"),
+  new Audio("sounds/gameEatSound/munch-sound-effect.mp3"),
+  new Audio("sounds/gameEatSound/rom-rom-vhaiyo.mp3"),
+  new Audio("sounds/gameEatSound/wow_anime.mp3"),
+   new Audio("sounds/gameEatSound/aww.mp3"),
+    new Audio("sounds/gameEatSound/nioce.mp3"),
+];
 const blocks = [];
 let snake = [
   {
@@ -40,10 +62,26 @@ for (let row = 0; row < rows; row++) {
     blocks[`${row},${col}`] = block;
   }
 }
-
+function gameFinishSounds() {
+  const randomIndex = Math.floor(Math.random() * gameOverSound.length);
+  const sound = gameOverSound[randomIndex];
+  sound.currentTime = 0;
+  sound.play();
+}
+function gameStartSounds() {
+  const randomIndex = Math.floor(Math.random() * gameStartSound.length);
+  const sound = gameStartSound[randomIndex];
+  sound.currentTime = 0;
+  sound.play();
+}
+function gameEatSounds() {
+  const randomIndex = Math.floor(Math.random() * gameEatSound.length);
+  const sound = gameEatSound[randomIndex];
+  sound.currentTime = 0;
+  sound.play();
+}
 function render() {
   blocks[`${food.x},${food.y}`].classList.add("food");
-
   let head = null;
   if (direction === "left") {
     head = { x: snake[0].x, y: snake[0].y - 1 };
@@ -56,15 +94,17 @@ function render() {
   }
 
   if (head.x < 0 || head.x >= rows || head.y < 0 || head.y >= cols) {
+    gameFinishSounds();
     clearInterval(interval);
     modal.style.display = "flex";
     startGameModal.style.display = "none";
     gameOverModel.style.display = "flex";
-    h3.innerHTML = `Game over your score is : ${score.textContent}`;
+    h3.innerHTML = `Game over your score is : ${score}`;
     return;
   }
 
   if (head.x == food.x && head.y == food.y) {
+    gameEatSounds();
     blocks[`${food.x},${food.y}`].classList.remove("food");
     food = {
       x: Math.floor(Math.random() * rows),
@@ -92,25 +132,27 @@ function render() {
 }
 
 startbutton.addEventListener("click", () => {
+  gameStartSounds();
   modal.style.display = "none";
   interval = setInterval(() => {
     render();
   }, 300);
   timerIntervalId = setInterval(() => {
-    let [min,sec] = time.split("-").map(Number);
-    if(sec ==59){
-      min+=1;
-      sec=0;
-    }else{
-      sec+=1;
+    let [min, sec] = time.split("-").map(Number);
+    if (sec == 59) {
+      min += 1;
+      sec = 0;
+    } else {
+      sec += 1;
     }
     time = `${min}-${sec}`;
     timeElement.textContent = time;
-  },1000);
+  }, 1000);
 });
 restartbutton.addEventListener("click", restartGame);
 
 function restartGame() {
+  gameStartSounds()
   blocks[`${food.x},${food.y}`].classList.remove("food");
   snake.forEach((segment) => {
     blocks[`${segment.x},${segment.y}`].classList.remove("fill");
