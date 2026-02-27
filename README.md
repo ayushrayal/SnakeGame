@@ -142,5 +142,6 @@ High score is stored using the browser's LocalStorage:
 - 🎓 Student | Full Stack Developer
 - 💼 LinkedIn: https://www.linkedin.com/in/ayush-rayal
 - 💻 GitHub: https://github.com/ayushrayal
+- 🔗 Game Live link: https://ayushsnakegame.vercel.app/
 
 Built as a learning and portfolio project to strengthen core JavaScript fundamentals and game development logic.
