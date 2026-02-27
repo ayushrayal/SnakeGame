@@ -11,7 +11,8 @@ html, body {
 
 :root {
   --bg-primary-color: #0c0c0c;
-  --bg-fill-color: rgba(19, 192, 82, 0.644);
+  --bg-fill-color: #f0f0f0;
+  --bg-head-color:rgba(118, 127, 118, 0.842);
   --bg-food-color:rgb(181, 27, 27);
   --text-primary-color: #f0f0f0;
   --space-xs:4px;
@@ -123,4 +124,8 @@ section .board {
 
 .modal .game-over {
   display: none;
+}
+
+.head {
+  background-color: var(--bg-head-color);
 }/*# sourceMappingURL=Style.css.map */
